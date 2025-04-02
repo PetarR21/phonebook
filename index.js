@@ -10,6 +10,8 @@ morgan.token("body", (req, res) => {
   return null;
 });
 
+app.use(express.static("dist"));
+
 app.use(express.json());
 app.use(
   morgan(function (tokens, req, res) {
@@ -91,7 +93,7 @@ app.delete("/api/persons/:id", (request, response) => {
   const person = persons.find((p) => p.id === request.params.id);
 
   if (person) {
-    persons = persons.filter((p) => p.id === person.id);
+    persons = persons.filter((p) => p.id !== person.id);
     response.sendStatus(204);
   } else {
     response.sendStatus(404);
